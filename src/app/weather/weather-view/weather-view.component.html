@@ -1,0 +1,93 @@
+<app-weather-add></app-weather-add>
+
+<h4>Past Searches</h4>
+
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        Table Controls
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Units</h5>
+            <button type="button" (click)="set_imperial()">Imperial</button>
+            <button type="button" (click)="set_metric()">Metric</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+          <h5 class="card-title">Specific Fields</h5>
+          <button [ngClass]="{'btn-success': show_location, 'btn-danger': !show_location}" type="button" (click)="toggle_field('location')">Location</button>
+          <button [ngClass]="{'btn-success': show_updated, 'btn-danger': !show_updated}" type="button" (click)="toggle_field('updated')">Last Updated</button>
+          <button [ngClass]="{'btn-success': show_condition, 'btn-danger': !show_condition}" type="button" (click)="toggle_field('condition')">Condition</button>
+          <button [ngClass]="{'btn-success': show_temp_f, 'btn-danger': !show_temp_f}" type="button" (click)="toggle_field('temp_f')">Temperature (F)</button>
+          <button [ngClass]="{'btn-success': show_temp_c, 'btn-danger': !show_temp_c}" type="button" (click)="toggle_field('temp_c')">Temperature (C)</button>
+          <button [ngClass]="{'btn-success': show_wind_mph, 'btn-danger': !show_wind_mph}" type="button" (click)="toggle_field('wind_mph')">Wind Speed (MPH)</button>
+          <button [ngClass]="{'btn-success': show_wind_kph, 'btn-danger': !show_wind_kph}" type="button" (click)="toggle_field('wind_kph')">Wind Speed (KPH)</button>
+          <button [ngClass]="{'btn-success': show_gust_mph, 'btn-danger': !show_gust_mph}" type="button" (click)="toggle_field('gust_mph')">Wind Gust Speed (MPH)</button>
+          <button [ngClass]="{'btn-success': show_gust_kph, 'btn-danger': !show_gust_kph}" type="button" (click)="toggle_field('gust_kph')">Wind Gust Speed (KPH)</button>
+          <button [ngClass]="{'btn-success': show_humidity, 'btn-danger': !show_humidity}" type="button" (click)="toggle_field('humidity')">Humidity</button>
+          <button [ngClass]="{'btn-success': show_cloud, 'btn-danger': !show_cloud}" type="button" (click)="toggle_field('cloud')">Cloud Cover</button>
+          <button [ngClass]="{'btn-success': show_precip_in, 'btn-danger': !show_precip_in}" type="button" (click)="toggle_field('precip_in')">Precipitation (IN)</button>
+          <button [ngClass]="{'btn-success': show_precip_mm, 'btn-danger': !show_precip_mm}" type="button" (click)="toggle_field('precip_mm')">Precipitation (MM)</button>
+          <button [ngClass]="{'btn-success': show_pressure_in, 'btn-danger': !show_pressure_in}" type="button" (click)="toggle_field('pressure_in')">Pressure (IN)</button>
+          <button [ngClass]="{'btn-success': show_pressure_mb, 'btn-danger': !show_pressure_mb}" type="button" (click)="toggle_field('pressure_mb')">Pressure (MB)</button>
+          <button [ngClass]="{'btn-success': show_vis_mi, 'btn-danger': !show_vis_mi}" type="button" (click)="toggle_field('vis_mi')">Visibility (MI)</button>
+          <button [ngClass]="{'btn-success': show_vis_km, 'btn-danger': !show_vis_km}" type="button" (click)="toggle_field('vis_km')">Visibility (KM)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table row-border hover" style="width:100%">
+  <thead>
+  <tr>
+    <th [hidden]="!show_location" scope="col"><a class="btn btn-primary" style="cursor: default">Location</a></th>
+    <th [hidden]="!show_updated" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('last_updated_epoch')">Last Updated <span [hidden]="isSortedEither('last_updated_epoch')">&#8597;</span> <span [hidden]="!isSorted('last_updated_epoch', true)">&uarr;</span><span  [hidden]="!isSorted('last_updated_epoch', false)">&darr;</span></a></th>
+    <th [hidden]="!show_condition" scope="col"><a class="btn btn-primary" style="cursor: default">Condition</a></th>
+    <th [hidden]="!show_temp_f" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('temp_f')">Temperature (F) <span [hidden]="isSortedEither('temp_f')">&#8597;</span> <span [hidden]="!isSorted('temp_f', true)">&uarr;</span><span  [hidden]="!isSorted('temp_f', false)">&darr;</span></a></th>
+    <th [hidden]="!show_temp_c" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('temp_c')">Temperature (C) <span [hidden]="isSortedEither('temp_c')">&#8597;</span> <span [hidden]="!isSorted('temp_c', true)">&uarr;</span><span  [hidden]="!isSorted('temp_c', false)">&darr;</span></a></th>
+    <th [hidden]="!show_wind_mph" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('wind_mph')">Wind Speed (MPH) <span [hidden]="isSortedEither('wind_mph')">&#8597;</span> <span [hidden]="!isSorted('wind_mph', true)">&uarr;</span><span  [hidden]="!isSorted('wind_mph', false)">&darr;</span></a></th>
+    <th [hidden]="!show_wind_kph" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('wind_kph')">Wind Speed (KPH) <span [hidden]="isSortedEither('wind_kph')">&#8597;</span> <span [hidden]="!isSorted('wind_kph', true)">&uarr;</span><span  [hidden]="!isSorted('wind_kph', false)">&darr;</span></a></th>
+    <th [hidden]="!show_gust_mph" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('gust_mph')">Wind Gust Speed (MPH) <span [hidden]="isSortedEither('gust_mph')">&#8597;</span> <span [hidden]="!isSorted('gust_mph', true)">&uarr;</span><span  [hidden]="!isSorted('gust_mph', false)">&darr;</span></a></th>
+    <th [hidden]="!show_gust_kph" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('gust_kph')">Wind Gust Speed (KPH) <span [hidden]="isSortedEither('gust_kph')">&#8597;</span> <span [hidden]="!isSorted('gust_kph', true)">&uarr;</span><span  [hidden]="!isSorted('gust_kph', false)">&darr;</span></a></th>
+    <th [hidden]="!show_humidity" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('humidity')">Humidity <span [hidden]="isSortedEither('humidity')">&#8597;</span> <span [hidden]="!isSorted('humidity', true)">&uarr;</span><span  [hidden]="!isSorted('humidity', false)">&darr;</span></a></th>
+    <th [hidden]="!show_cloud" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('cloud')">Cloud Cover <span [hidden]="isSortedEither('cloud')">&#8597;</span> <span [hidden]="!isSorted('cloud', true)">&uarr;</span><span  [hidden]="!isSorted('cloud', false)">&darr;</span></a></th>
+    <th [hidden]="!show_precip_in" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('precip_in')">Precipitation (IN) <span [hidden]="isSortedEither('precip_in')">&#8597;</span> <span [hidden]="!isSorted('precip_in', true)">&uarr;</span><span  [hidden]="!isSorted('precip_in', false)">&darr;</span></a></th>
+    <th [hidden]="!show_precip_mm" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('precip_mm')">Precipitation (MM) <span [hidden]="isSortedEither('precip_mm')">&#8597;</span> <span [hidden]="!isSorted('precip_mm', true)">&uarr;</span><span  [hidden]="!isSorted('precip_mm', false)">&darr;</span></a></th>
+    <th [hidden]="!show_pressure_in" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('pressure_in')">Pressure (IN) <span [hidden]="isSortedEither('pressure_in')">&#8597;</span> <span [hidden]="!isSorted('pressure_in', true)">&uarr;</span><span  [hidden]="!isSorted('pressure_in', false)">&darr;</span></a></th>
+    <th [hidden]="!show_pressure_mb" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('pressure_mb')">Pressure (MB) <span [hidden]="isSortedEither('pressure_mb')">&#8597;</span> <span [hidden]="!isSorted('pressure_mb', true)">&uarr;</span><span  [hidden]="!isSorted('pressure_mb', false)">&darr;</span></a></th>
+    <th [hidden]="!show_vis_mi" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('vis_miles')">Visibility (MI) <span [hidden]="isSortedEither('vis_miles')">&#8597;</span> <span [hidden]="!isSorted('vis_miles', true)">&uarr;</span><span  [hidden]="!isSorted('vis_miles', false)">&darr;</span></a></th>
+    <th [hidden]="!show_vis_km" scope="col"> <a class="btn btn-primary" (click)="sortWeathers('vis_km')">Visibility (KM) <span [hidden]="isSortedEither('vis_km')">&#8597;</span> <span [hidden]="!isSorted('vis_km', true)">&uarr;</span><span  [hidden]="!isSorted('vis_km', false)">&darr;</span></a></th>
+    <th><a class="btn btn-primary" style="cursor: default">Controls</a></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let weather of weather_list$ | async">
+    <td [hidden]="!show_location" scope="row">{{weather.location.name}}, {{weather.location.region}}: {{weather.id}}</td>
+    <td [hidden]="!show_updated">{{weather.last_updated}}</td>
+    <td [hidden]="!show_condition"><img src="{{weather.condition.icon}}"> {{weather.condition.text}}</td>
+    <td [hidden]="!show_temp_f">{{weather.temp_f}} &deg;F (Feels like {{weather.feelslike_f}} &deg;F)</td>
+    <td [hidden]="!show_temp_c">{{weather.temp_c}} &deg;C (Feels like {{weather.feelslike_c}} &deg;C)</td>
+    <td [hidden]="!show_wind_mph">{{weather.wind_mph}} mph {{weather.wind_dir}}</td>
+    <td [hidden]="!show_wind_kph">{{weather.wind_kph}} km/h {{weather.wind_dir}}</td>
+    <td [hidden]="!show_gust_mph">{{weather.gust_mph}} mph</td>
+    <td [hidden]="!show_gust_kph">{{weather.gust_kph}} km/h</td>
+    <td [hidden]="!show_humidity">{{weather.humidity}}%</td>
+    <td [hidden]="!show_cloud">{{weather.cloud}}%</td>
+    <td [hidden]="!show_precip_in">{{weather.precip_in}} in</td>
+    <td [hidden]="!show_precip_mm">{{weather.precip_mm}} mm</td>
+    <td [hidden]="!show_pressure_in">{{weather.pressure_in}} in</td>
+    <td [hidden]="!show_pressure_mb">{{weather.pressure_mb}} mb</td>
+    <td [hidden]="!show_vis_mi">{{weather.vis_miles}} mi</td>
+    <td [hidden]="!show_vis_km">{{weather.vis_km}} km</td>
+    <td><a class="btn btn-primary" [routerLink]="['/detail', weather.id]">Details</a><br><a class="btn btn-danger" (click)="deleteWeather(weather.search)">Delete</a></td>
+  </tr>
+  </tbody>
+</table>

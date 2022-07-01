@@ -1,0 +1,8 @@
+<h4>Weather Search</h4>
+
+<input #box>
+<button (click)="addWeather(box.value)">Search</button>
+
+<div>
+  {{ searchService.error }}
+</div>

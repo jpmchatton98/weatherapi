@@ -1,0 +1,30 @@
+<a class="btn btn-primary" [routerLink]="['../../home']">&larr; Back to List</a>
+
+<div *ngIf="weather; else elseBlock">
+  <h3>{{weather.location.name}}, {{weather.location.region}}</h3>
+
+  Last Updated: {{weather.last_updated}}
+  <br>
+  <img src="{{weather.condition.icon}}"> {{weather.condition.text}}
+  <br>
+  Temperature: {{weather.temp_f}} &deg;F ({{weather.temp_c}} &deg;C) - Feels like {{weather.feelslike_f}} &deg;F ({{weather.feelslike_c}} &deg;C)
+  <br>
+  Wind Speed: {{weather.wind_mph}} mph ({{weather.wind_kph}} km/h) {{weather.wind_dir}}
+  <br>
+  Wind Gust Speed: {{weather.gust_mph}} mph ({{weather.gust_kph}} km/h)
+  <br>
+  Humidity: {{weather.humidity}}%
+  <br>
+  Cloud Cover: {{weather.cloud}}%
+  <br>
+  Precipitation: {{weather.precip_in}} in ({{weather.precip_mm}} mm)
+  <br>
+  Air Pressure: {{weather.pressure_in}} in ({{weather.pressure_mb}} mb)
+  <br>
+  Visibility: {{weather.vis_miles}} mi ({{weather.vis_km}} km)
+</div>
+
+<ng-template #elseBlock>
+  <br>
+  The weather data you are trying to access does not exist.  Click the button above to go back to the list.
+</ng-template>
